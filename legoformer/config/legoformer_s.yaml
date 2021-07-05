@@ -1,0 +1,6 @@
+data:
+  constants:
+    n_views: 1
+
+network:
+  type: legoformer_s

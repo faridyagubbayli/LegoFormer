@@ -1,0 +1,69 @@
+seed: 0
+
+data:
+  dataset:
+    ShapeNet:
+      taxonomy_path: ./legoformer/data/ShapeNet_taxonomy.json
+      image_path: /mnt/Samsung_T5/thesis/ShapeNetRendering/%s/%s/rendering/%02d.png
+      voxel_path: /mnt/Samsung_T5/thesis/ShapeNetVox32/%s/%s/model.binvox
+
+  constants:
+    img_w: 224
+    img_h: 224
+    crop_img_w: 128
+    crop_img_h: 128
+    n_views: TO_BE_SPECIFIED
+    n_vox: 32
+    selection_mode: random
+    bg_mode: random
+    train_augmentation: true
+
+  transforms:
+    mean: [0.5, 0.5, 0.5]
+    std: [0.5, 0.5, 0.5]
+    brightness: 0.4
+    contrast: 0.4
+    saturation: 0.4
+    noise_std: 0.4
+    train_rand_bg_color_range: [[225, 255], [225, 255], [225, 255]]
+    test_rand_bg_color_range: [[240, 240], [240, 240], [240, 240]]
+
+  loader:
+    batch_size: 128
+    num_workers: 4
+    repeat_factor: 400
+
+network:
+  type: TO_BE_SPECIFIED
+  n_queries: 12
+  clip_output: true
+  transformer:
+      num_encoder_layers: 8
+      num_decoder_layers: 8
+      dropout: 0.10
+      d_model: 768
+      nhead: 8
+      dim_feedforward: 4096
+
+trainer:
+  max_epochs: 10
+  gpus: 1
+  check_val_every_n_epoch: 1
+  precision: 32
+  log_every_n_steps: 1
+  num_sanity_val_steps: 0
+
+optimization:
+    lr: 1e-2
+    warmup_steps: 10000
+
+logging:
+  metrics: ['iou']
+  sample_ids_to_plot: [
+    "58eb1f7c59fda8271068f29f0b65163f",
+    "70e4200e848e653072ec6e905035e5d7",
+    "e037cb87e6cdcd76df39601c41fbe0ba",
+    "8a6ab7486ecbecdb203936772104a82d",
+    "12d44fd814bc9b40ec2a7a1f5fe7365d"
+  ]
+  logdir: /thesis/outputs
