@@ -5,3 +5,4 @@ numpy==1.19.1
 opencv-python==4.1.2.30
 numba==0.52.0
 open3d==0.12.0
+PyMCubes
